@@ -14,7 +14,7 @@ style={styles.icon}
 source={require('../icon/Rebirthicon.png')}
 />
 <View style={{flexDirection:'row',marginTop:0}}>
-<Text style={styles.texts}>Re</Text><Text style={styles.texts,{color:'#D7C6F8',fontSize:44,fontFamily:"sans-serif-medium",}}>b</Text><Text style={styles.texts}>irth</Text>
+<Text style={styles.texts}>Re</Text><Text style={styles.texts,{color:'#f59342',fontSize:44,fontFamily:"sans-serif-medium",}}>b</Text><Text style={styles.texts}>irth</Text>
 </View>
 
 <View style={{marginTop:'10%'}}>
@@ -80,7 +80,7 @@ width:140,
   button:{
     height:65,
     width:320,
-backgroundColor:'#D7C6F8',
+backgroundColor:'#1f80e0',
 borderRadius:25,
 alignItems:'center',
 justifyContent:'center',

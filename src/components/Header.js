@@ -16,7 +16,7 @@ const Header = () => {
 const styles = StyleSheet.create({
   headerStyle: {
     flexDirection: "row",
-    backgroundColor: "#763BE54A",
+    backgroundColor: "#f59342",
     alignItems:'flex-end',
     height: 80,
     

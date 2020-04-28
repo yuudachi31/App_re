@@ -14,7 +14,7 @@ style={styles.icon}
 source={require('../icon/Rebirthicon.png')}
 />
 <View style={{flexDirection:'row',marginTop:0}}>
-<Text style={styles.texts}>Re</Text><Text style={styles.texts,{color:'#D7C6F8',fontSize:44,fontFamily:"sans-serif-medium",}}>b</Text><Text style={styles.texts}>irth</Text>
+<Text style={styles.texts}>Re</Text><Text style={styles.texts,{color:'#f59342',fontSize:44,fontFamily:"sans-serif-medium",}}>b</Text><Text style={styles.texts}>irth</Text>
 </View>
 <View style={styles.aCont}>
 <Text style={styles.article}>還在為身材煩惱嗎？ Rebirth將幫助你一起 重新雕塑身材，下定 決心之後就開始吧！</Text>
@@ -67,7 +67,8 @@ width:250,
   button:{
     height:70,
     width:280,
-backgroundColor:'#D7C6F8',
+backgroundColor:'#1f80e0',
+// #1f80e0  #4e9abf
 borderRadius:30,
 alignItems:'center',
 justifyContent:'center',

@@ -2,12 +2,12 @@ import React from "react";
 import { View, FlatList,StyleSheet,Text,Image } from "react-native";
 import HomeDetail from "../src/components/HomeDetail";
 import albumsData from "../json/albums.json";
-import Header from "../src/components/Header"
+import Header2 from "../src/components/Header2"
 const ReportScreen = ({navigation}) => {
   return (
     
     <View style={{flex:1,backgroundColor:"#fff"}}>
-      <Header/>
+      <Header2/>
       <View style={styles.topContentStyle}>
         <Text style={styles.textstyle1}>4月25日</Text>
         <Text style={styles.textstyle1}>你已經堅持了20天</Text>

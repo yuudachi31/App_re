@@ -2,12 +2,13 @@ import React from "react";
 import { StyleSheet, Text, View,Image, Linking } from "react-native";
 
 
-const Header = () => {
+const Header2 = () => {
   return (
       <View style={styles.headerStyle}>
         
        
         <Text style={styles.textStyle}>Rebirth</Text>
+        <Image style={{height:30, width:30,marginBottom:20,marginRight:22}} source={require('../img/event_note-black-18dp.png')}/>
         
       </View>
   );
@@ -16,10 +17,15 @@ const Header = () => {
 const styles = StyleSheet.create({
   headerStyle: {
     flexDirection: "row",
-    backgroundColor: "#f59342",
+    backgroundColor: "#F79341",
     alignItems:'flex-end',
-    height: 80,
-    
+    justifyContent:'space-between',
+    height: 100,
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 3 },
+    shadowOpacity: 0.9,
+    // Android Only
+    elevation: 2
   
     
   },
@@ -28,7 +34,8 @@ const styles = StyleSheet.create({
     marginLeft:25,
     marginBottom:10,
     color:"#ffffff",
-    fontFamily:"sans-serif-medium"
+    fontFamily:"sans-serif-medium",
+    marginBottom:20
     
   },
   Icon:{
@@ -38,4 +45,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Header;
+export default Header2;

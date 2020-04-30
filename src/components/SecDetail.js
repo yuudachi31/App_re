@@ -84,6 +84,10 @@ backgroundColor:'#1f80e0',
 borderRadius:25,
 alignItems:'center',
 justifyContent:'center',
+shadowOffset: { width: 0, height: 3 },
+shadowOpacity: 0.9,
+// Android Only
+elevation: 4
   }
  });
 

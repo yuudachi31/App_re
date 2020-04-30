@@ -14,37 +14,42 @@ const MainTabNavigation =()=>{
 
         if (route.name === 'Home') {
           iconName = focused
-            ? require("../src/img/home_purple.png")
+            ? require("../src/img/home_orange.png")
             : require('../src/img/home_black.png');
         } else if (route.name === 'Diary') {
           iconName = focused 
-          ? require("../src/img/eat_purple.png")
-          : require('../src/img/eat_black.png');
+          ? require("../src/img/diary_orange.png")
+          : require('../src/img/diary.png');
         }
         else if(route.name === 'Report'){
           iconName = focused 
-          ? require("../src/img/report_purple.png")
+          ? require("../src/img/report_orange.png")
           : require('../src/img/report_black.png');
 
         }
         else if(route.name === 'Me'){
           iconName = focused 
-          ? require("../src/img/person_purple.png")
+          ? require("../src/img/person_orange.png")
           : require('../src/img/person_black.png');
 
         }
         // You can return any component that you like here!
-        return <Image source={iconName} style={{width:25,height:25}} />;
+        return <Image source={iconName} style={{width:30,height:30}} />;
       },
     })}
         
         
         tabBarOptions={{
-          activeTintColor: '#763BE54A',
+          activeTintColor: '#F69442',
           inactiveTintColor: '#ACACAC',
+          labelStyle: {
+            fontSize: 15,
+          marginBottom:10
+          },
           style:{
             backgroundColor:'#fff',
-            height:90
+            height:80,
+           
           }
         }}
         >

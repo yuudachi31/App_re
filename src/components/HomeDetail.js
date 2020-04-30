@@ -11,10 +11,7 @@ const HomeDetail = ({ album,navigation })=> {
         </Text>
       </View>
         <View>
-          <Image
-            style={styles.imageStyle}
-            source={{uri: album.image}}
-          />         
+               
         </View>
        
       </View>  

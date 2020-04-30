@@ -1,13 +1,13 @@
 import React from "react";
 import { View, FlatList } from "react-native";
-import Header from "../components/Header";
+import Header1 from "../components/Header1";
 import FirstDetail from "../components/FirstDetail";
 
 
 const FirstScreen = ({ navigation }) => {
   return (
     <View style={{flex: 1}}>
-      <Header
+      <Header1
       />
     
       <FirstDetail 

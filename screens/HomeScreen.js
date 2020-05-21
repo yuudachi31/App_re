@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { View, FlatList,StyleSheet,Text,Image,ScrollView,TouchableOpacity } from "react-native";
+import { View, FlatList,StyleSheet,Text,Image,ScrollView,TouchableOpacity,Dimensions } from "react-native";
 import HomeDetail from "../src/components/HomeDetail";
 import albumsData from "../json/albums.json";
 import Header from "../src/components/Header2"
 const HomeScreen = ({navigation}) => {
   const [high, sethigh] = useState(0);
   const [num, setnum] = useState(0);
+
   return (
     
     <View style={{flex:1,backgroundColor:"#fff"}}>
@@ -59,6 +60,8 @@ const HomeScreen = ({navigation}) => {
         <Text style={{marginBottom:-8,marginTop:3,color:'#eb8178'}}>{num}/2500</Text>
       <View style={{backgroundColor:'#9bd9e8',
     flexDirection:'column-reverse',
+    borderBottomLeftRadius:5,
+    borderBottomRightRadius:5,
     height:high,
     width:77}}>
       <Image style={styles.bottle} source={require('../src/img/bottle.png')}/>
@@ -67,12 +70,12 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View style={{height:180,width:40,top:35,justifyContent:'space-between',alignItems:'flex-end',bottom:20}}>
       <TouchableOpacity
-       onPress={() =>{sethigh(high+6);setnum(num+100)}}
+       onPress={() =>{sethigh(high+6);setnum(num+100);console.log(num);}}
       >
 <Image style={styles.pdbutton} source={require('../src/icon/plus.png')}/>
 </TouchableOpacity>
 <TouchableOpacity
-       onPress={() =>{sethigh(high-6);setnum(num-100)}}
+       onPress={() =>{sethigh(high-6);setnum(num-100);console.log(num);}}
       >
 <Image style={styles.pdbutton} source={require('../src/icon/decrease.png')}/>
 </TouchableOpacity>
@@ -156,6 +159,11 @@ const HomeScreen = ({navigation}) => {
   );
 };
 
+const win = Dimensions.get('window');
+const ratio = win.width/13;
+const starwidth = win.width/17;
+const bottomWidth=win.width/5.3;
+
 const styles=StyleSheet.create({
   cardContainerStyle: {
     width:"60%",
@@ -178,7 +186,7 @@ const styles=StyleSheet.create({
   },
   topContentStyle:{
     height:180,
-    width:420,
+    width:'100%',
     backgroundColor:"#F69342",
     justifyContent:'center',
     alignItems:'center',
@@ -224,14 +232,19 @@ marginTop:20,
     backgroundColor:'#9bd9e8',
     flexDirection:'column-reverse',
     height:10,
-    width:77
+    width:77,
+    borderBottomLeftRadius:5,
+    borderBottomRightRadius:5
     
   },
   bottle:{
     height:190,
-    width:77,
+    width:bottomWidth,
     marginTop:50,
     marginRight:20,
+    borderBottomLeftRadius:5,
+    borderBottomRightRadius:5
+
   },
   waterSection:{
     width:"40%",
@@ -251,11 +264,11 @@ alignItems:'center'
   },
   star:{
     height:26,
-    width:26
+    width:starwidth
   },
   missonComplete:{
-    height:35,
-    width:35,
+    height:ratio,
+    width:ratio,
     alignSelf:'flex-end',
     marginRight:45}
 });

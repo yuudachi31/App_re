@@ -8,6 +8,7 @@ const FirstScreen = ({ navigation }) => {
   return (
     <View style={{flex: 1}}>
       <Header1
+      
       />
     
       <FirstDetail 

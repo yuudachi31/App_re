@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList,StyleSheet,ScrollView, Text,Image } from "react-native";
 import HomeDetail from "../src/components/HomeDetail";
-import albumsData from "../json/albums.json";
+
 
 const breakfast = ({navigation}) => {
   return (

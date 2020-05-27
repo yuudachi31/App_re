@@ -1,15 +1,24 @@
-import React from "react";
-import { StyleSheet, Text, View,Image, Linking } from "react-native";
-
-
-const Header2 = () => {
+import React,{useContext} from "react";
+import { StyleSheet, Text, View,Image, Linking,AsyncStorage } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { StoreContext } from "../stores/mestore";
+const FIRST_STATE_KEY = "FIRST_STATE";
+const Header2 = ({ navigation }) => {
+  const {NavigationState}=useContext(StoreContext);
+  const [initialNavigationState, setInitialNavigationState]=NavigationState;
   return (
       <View style={styles.headerStyle}>
         
        
         <Text style={styles.textStyle}>Rebirth</Text>
-        <Image style={{height:30, width:30,marginBottom:20,marginRight:22}} source={require('../img/event_note-black-18dp.png')}/>
-        
+        <TouchableOpacity
+        onPress={()=>{
+          navigation.navigate('FirstScreen')
+         
+        }}
+         >
+    <Image style={{height:30, width:30,marginBottom:20,marginRight:22}} source={require('../img/event_note-black-18dp.png')}/>
+        </TouchableOpacity>
       </View>
   );
 };

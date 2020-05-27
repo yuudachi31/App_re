@@ -1,16 +1,39 @@
-import React, { useState } from "react";
-import { View, FlatList,StyleSheet,Text,Image,ScrollView,TouchableOpacity,Dimensions } from "react-native";
+import React, { useState,useContext } from "react";
+import { View, FlatList,StyleSheet,Text,Image,ScrollView,TouchableOpacity,Dimensions,AsyncStorage } from "react-native";
 import HomeDetail from "../src/components/HomeDetail";
-import albumsData from "../json/albums.json";
+import { StoreContext } from "../src/stores/mestore";
 import Header from "../src/components/Header2"
 const HomeScreen = ({navigation}) => {
   const [high, sethigh] = useState(0);
   const [num, setnum] = useState(0);
+ const {bottleState} = useContext(StoreContext);
+  const [bottle, setbottle] = bottleState;
+  const WATER_KEY ="WATER_STATE";
 
+  
+    React.useEffect(() => {
+      async function loadDataAsync() {
+        try {
+         
+          const savedWaterString = await AsyncStorage.getItem(WATER_KEY);
+          const waterdata = JSON.parse(savedWaterString);
+          setbottle(waterdata);sethigh(waterdata*0.065);
+        } catch (e) {
+          // We might want to provide this error information to an error reporting service
+          console.warn(e);
+        } finally {
+         
+     
+          
+        }
+      }
+      loadDataAsync();
+    }, []);
+  
   return (
     
     <View style={{flex:1,backgroundColor:"#fff"}}>
-      <Header/>
+      <Header  navigation={navigation}  />
       <ScrollView >
       <View style={styles.topContentStyle}>
         <Text style={styles.textstyle0}>4月25日</Text>
@@ -57,9 +80,11 @@ const HomeScreen = ({navigation}) => {
         
       </View>  
       <View style={{height:200,flexDirection:'column-reverse',marginLeft:20,bottom:17,alignItems:'center'}}>
-        <Text style={{marginBottom:-8,marginTop:3,color:'#eb8178'}}>{num}/2500</Text>
+        <Text style={{marginBottom:-8,marginTop:3,color:'#eb8178'}}>{bottle}/2500</Text>
       <View style={{backgroundColor:'#9bd9e8',
     flexDirection:'column-reverse',
+    borderTopLeftRadius:5,
+borderTopRightRadius:5,
     borderBottomLeftRadius:5,
     borderBottomRightRadius:5,
     height:high,
@@ -70,12 +95,37 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View style={{height:180,width:40,top:35,justifyContent:'space-between',alignItems:'flex-end',bottom:20}}>
       <TouchableOpacity
-       onPress={() =>{sethigh(high+6);setnum(num+100);console.log(num);}}
+       onPress={() =>{
+         if(bottle>=0&&bottle<=2400){
+           setbottle(bottle+100);sethigh((bottle+100)*0.065);console.log(bottle);
+           AsyncStorage.setItem(WATER_KEY, JSON.stringify(bottle+100));
+          }else if(bottle>2400){
+            setbottle(2500);sethigh((2500)*0.065);console.log(bottle);
+            AsyncStorage.setItem(WATER_KEY, JSON.stringify(2500));
+
+          }
+          else{
+           setbottle(0); sethigh(bottle*0.065);console.log(bottle);
+           AsyncStorage.setItem(WATER_KEY, JSON.stringify(0));
+          };
+         
+          
+      }}
       >
+        {/* 0.065的部分之後可設global state */}
 <Image style={styles.pdbutton} source={require('../src/icon/plus.png')}/>
 </TouchableOpacity>
 <TouchableOpacity
-       onPress={() =>{sethigh(high-6);setnum(num-100);console.log(num);}}
+       onPress={() =>{
+        if(bottle>=100){
+          setbottle(bottle-100);sethigh((bottle-100)*0.065);console.log(bottle);
+          AsyncStorage.setItem(WATER_KEY, JSON.stringify(bottle-100));
+         }else{
+          setbottle(0); sethigh(bottle*0.065);console.log(bottle);
+          AsyncStorage.setItem(WATER_KEY, JSON.stringify(0));
+         };
+         
+        }}
       >
 <Image style={styles.pdbutton} source={require('../src/icon/decrease.png')}/>
 </TouchableOpacity>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useContext} from 'react';
 // import { View, FlatList } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
@@ -9,11 +9,17 @@ import FirstScreen from './src/screens/FirstScreen';
 import SecondScreen from './src/screens/SecondScreen';
 import DiaryScreen from './screens/DiaryScreen'
 import breakfast from './screens/breakfast'
+import { StoreProvider } from "./src/stores/mestore"
+import { StoreContext } from "./src/stores/mestore";
 const Stack = createStackNavigator();
 const PERSISTENCE_KEY = "NAVIGATION_STATE";
+const FIRST_STATE_KEY = "FIRST_STATE";
+
+
 const App = () => {
-  const [isLoadingComplete, setLoadingComplete] = React.useState(false);
-  const [initialNavigationState, setInitialNavigationState] = React.useState();
+  const {LoadingCompleteState,NavigationState}=useContext(StoreContext);
+  const [isLoadingComplete, setLoadingComplete]=LoadingCompleteState;
+  const [initialNavigationState, setInitialNavigationState]=NavigationState;
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
@@ -21,6 +27,7 @@ const App = () => {
         const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
         const state = JSON.parse(savedStateString);
         setInitialNavigationState(state);
+        console.log(state);
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
@@ -44,7 +51,9 @@ const App = () => {
           initialState={initialNavigationState}
           onStateChange={(state) =>{
             AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state));
-            console.log(state);
+            
+            
+            
           }
           }
         >
@@ -60,5 +69,10 @@ const App = () => {
   );
 }
 }
-export default App;
+export default  () => {
+  return (
+   <StoreProvider>
+     <App />
+   </StoreProvider>
+  )};
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList,StyleSheet,Text,Image } from "react-native";
 import HomeDetail from "../src/components/HomeDetail";
-import albumsData from "../json/albums.json";
+import albumsData from "../json/me.json";
 import Header2 from "../src/components/Header2"
 const ReportScreen = ({navigation}) => {
   return (

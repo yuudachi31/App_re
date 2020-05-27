@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList,StyleSheet,Text,Image,ImageBackground ,TouchableOpacity} from "react-native";
 import HomeDetail from "../src/components/HomeDetail";
-import albumsData from "../json/albums.json";
+
 import Header1 from "../src/components/Header1"
 
 const DiaryScreen = ({navigation}) => {

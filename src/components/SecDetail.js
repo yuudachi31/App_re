@@ -1,11 +1,11 @@
- import React from "react";
+ import React,{useContext} from "react";
  import { StyleSheet, Text, View, Image, TouchableOpacity, Linking, Alert} from "react-native";
-
-					
-
+ import { StoreContext } from "../stores/mestore";
 
 
  const Detail = ({ navigation }) => {
+  const {loginState}=useContext(StoreContext);
+  const [islogin,setislogin]=loginState;
     return (
        <View style={styles.container}>
          <View style={styles.container2}>
@@ -20,14 +20,14 @@ source={require('../icon/Rebirthicon.png')}
 <View style={{marginTop:'10%'}}>
   <TouchableOpacity
   style={{marginTop:'5%'}}
-  onPress={()=>navigation.navigate('FirstScreen')}
+  onPress={()=>setislogin(flase)}
   >
 <View style={styles.button}><Text style={{fontSize:25,color:'#FFFFFF',fontFamily:"sans-serif-medium",}}>身材很好想保持</Text></View>
 
   </TouchableOpacity>
   <TouchableOpacity
   style={{marginTop:'5%'}}
-  onPress={()=>navigation.navigate('ThirdScreen')}
+  onPress={()=>{setislogin(true);}}
   >
 <View style={styles.button}><Text style={{fontSize:25,color:'#FFFFFF',fontFamily:"sans-serif-medium",}}>我想要減肥！</Text></View>
 

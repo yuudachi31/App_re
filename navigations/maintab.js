@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen'
 import NewReport from '../screens/NewReport'
 import DiaryScreen from '../screens/DiaryScreen'
-import meScreen from '../screens/meScreen'
+import meScreen from '../screens/NewMe'
 import breakfast from '../screens/breakfast'
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -31,8 +31,8 @@ const MainTabNavigation =()=>{
         }
         else if(route.name === 'Report'){
           iconName = focused 
-          ? require("../src/img/report_orange.png")
-          : require('../src/img/report_black.png');
+          ? require("../src/img/emoji_events_focus.png")
+          : require('../src/img/emoji_events-24px.png');
 
         }
         else if(route.name === 'Me'){

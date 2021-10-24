@@ -18,9 +18,9 @@ const win = Dimensions.get('window');
 
 const breakfast = ({navigation}) => {
   const [cal,setcal]=useState(0);
-  const [cw,setcw]=useState(null);
-  const [ew,setew]=useState(null);
-  const [ff,setff]=useState(null);
+  const [cw,setcw]=useState(0);
+  const [ew,setew]=useState(0);
+  const [ff,setff]=useState(0);
   const [msg4,setmsg4]=useState(null);
   const {heatState,CaoWatState,EgWhState,FfatState} = useContext(StoreContext);
   [heat,setheat]=heatState;
@@ -29,19 +29,19 @@ const breakfast = ({navigation}) => {
   [Ffat,setFfat]=FfatState;
   React.useEffect(()=>{
     setmsg4(null);
-    setcal(null);
-    setcw(null);
-    setew(null);
-    setff(null);
+    setcal(0);
+    setcw(0);
+    setew(0);
+    setff(0);
   },[])
   return (
   <View style={{flex:1}}>
      <Header/>
      <ScrollView>
-<View style={{width:win.width,height:100,backgroundColor:'#f2d049',alignItems:'center',justifyContent:'center'}}>
-  <Text style={{fontSize:45,color:'#fff'}}>今日早餐</Text>
+<View style={{width:win.width,height:100,backgroundColor:'#ff985c',alignItems:'center',justifyContent:'center'}}>
+  <Text style={{fontSize:45,color:'#fff'}}>今日晚餐</Text>
 </View>
-   <View style={{width:win.width,height:400,backgroundColor:'#f5e08c',alignItems:'center',marginTop:5}}>
+   <View style={{width:win.width,height:400,backgroundColor:'#ffb88f',alignItems:'center',marginTop:5}}>
      <View style={{width:win.width,alignItems:'flex-end'}}>
      <TouchableOpacity
  onPress={()=>{
@@ -57,7 +57,7 @@ const breakfast = ({navigation}) => {
    <Image style={{height:350,width:win.width*0.85}} source={require('../src/img/breakfast2.png')}/>
    </View>
    <View style={{flexDirection:'row',justifyContent:'space-around',width:win.width}}>
-<View style={{backgroundColor:'#f2d049',height:win.width/4,width:win.width*0.495,marginTop:2,alignItems:'center',justifyContent:'center'}}>
+<View style={{backgroundColor:'#ff985c',height:win.width/4,width:win.width*0.495,marginTop:2,alignItems:'center',justifyContent:'center'}}>
   <Text style={styles.type} >熱量</Text>
   <TextInput style={styles.num}
   autoCorrect={false}
@@ -68,7 +68,7 @@ const breakfast = ({navigation}) => {
   style={styles.inputStyle}
   />
 </View>
-<View style={{backgroundColor:'#f2d049',height:win.width/4,width:win.width*0.495,marginTop:2,alignItems:'center',justifyContent:'center'}}>
+<View style={{backgroundColor:'#ff985c',height:win.width/4,width:win.width*0.495,marginTop:2,alignItems:'center',justifyContent:'center'}}>
   <Text style={styles.type} >碳水化合物</Text>
   <TextInput style={styles.num}
   autoCorrect={false}
@@ -81,7 +81,7 @@ const breakfast = ({navigation}) => {
 </View>
 </View>
 <View style={{flexDirection:'row',justifyContent:'space-around',width:win.width}}>
-<View style={{backgroundColor:'#f2d049',height:win.width/4,width:win.width*0.495,marginTop:2,alignItems:'center',justifyContent:'center'}}>
+<View style={{backgroundColor:'#ff985c',height:win.width/4,width:win.width*0.495,marginTop:2,alignItems:'center',justifyContent:'center'}}>
   <Text style={styles.type} >蛋白質</Text>
   <TextInput style={styles.num}
   autoCorrect={false}
@@ -92,7 +92,7 @@ const breakfast = ({navigation}) => {
   style={styles.inputStyle}
   />
 </View>
-<View style={{backgroundColor:'#f2d049',height:win.width/4,width:win.width*0.495,marginTop:2,alignItems:'center',justifyContent:'center'}}>
+<View style={{backgroundColor:'#ff985c',height:win.width/4,width:win.width*0.495,marginTop:2,alignItems:'center',justifyContent:'center'}}>
   <Text style={styles.type} >脂肪</Text>
   <TextInput style={styles.num}
   autoCorrect={false}
@@ -147,7 +147,7 @@ color:'#FFFFFF'
   inputStyle:{
     
     height:50,
-    backgroundColor:'#f5e08c',
+    backgroundColor:'#ffb88f',
     width:120,
     paddingLeft:5,
     fontSize:15

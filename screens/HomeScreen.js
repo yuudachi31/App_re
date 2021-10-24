@@ -1,16 +1,28 @@
-import React, { useState,useContext } from "react";
-import { View, FlatList,StyleSheet,Text,Image,ScrollView,TouchableOpacity,Dimensions,AsyncStorage } from "react-native";
+import React, { useState,useContext,useRef } from "react";
+import { View,LayoutAnimation,Platform,Animated,PanResponder, UIManager, FlatList,StyleSheet,Text,Image,ScrollView,TouchableOpacity,Dimensions,AsyncStorage } from "react-native";
 import HomeDetail from "../src/components/HomeDetail";
 import { StoreContext } from "../src/stores/mestore";
 import Header from "../src/components/Header2"
+
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+const BALLWIDTH = 60;
 const HomeScreen = ({navigation}) => {
   const [high, sethigh] = useState(0);
   const [num, setnum] = useState(0);
  const {bottleState} = useContext(StoreContext);
   const [bottle, setbottle] = bottleState;
   const WATER_KEY ="WATER_STATE";
-
-  
+  const LOGIN_KEY ="LOGIN_STATE";
+  const {heatState,CaoWatState,EgWhState,FfatState} = useContext(StoreContext);
+  [heat,setheat]=heatState;
+  [CaoWat,setCaoWat]=CaoWatState;
+  [EgWh,setEgWh]=EgWhState;
+  [Ffat,setFfat]=FfatState;
     React.useEffect(() => {
       async function loadDataAsync() {
         try {
@@ -18,6 +30,8 @@ const HomeScreen = ({navigation}) => {
           const savedWaterString = await AsyncStorage.getItem(WATER_KEY);
           const waterdata = JSON.parse(savedWaterString);
           setbottle(waterdata);sethigh(waterdata*0.065);
+          
+          
         } catch (e) {
           // We might want to provide this error information to an error reporting service
           console.warn(e);
@@ -29,7 +43,69 @@ const HomeScreen = ({navigation}) => {
       }
       loadDataAsync();
     }, []);
-  
+    const position = useRef(new Animated.ValueXY({ x: 200, y: 400 })).current;
+  const panResponder = useRef(
+    PanResponder.create({
+      // onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: (event, gesture) => {
+        let { moveX, moveY } = gesture;
+        position.setValue({
+          x: moveX - BALLWIDTH / 2,
+          y: moveY - BALLWIDTH / 2,
+        });
+      },      
+      // onPanResponderRelease: (event, gesture) => {},
+    })
+  ).current;
+  const ewLevel =()=>{
+    if(EgWh>=500){
+      return(
+        <View style={{backgroundColor:'#f29b88',height:12, marginLeft:20,width:160}}>
+        <View style={styles.subbbb}>
+        </View>
+        </View>
+      )}else{
+        return(
+          <View style={{backgroundColor:'#F69342',height:12, marginLeft:20,width:EgWh/500*160}}>
+          <View style={styles.subbbb}>
+          </View>
+          </View>
+        )
+      }
+    }
+    const cwLevel =()=>{
+      if(CaoWat>=610){
+        return(
+          <View style={{backgroundColor:'#f29b88',height:12, marginLeft:20,width:160}}>
+          <View style={styles.subbbb}>
+          </View>
+          </View>
+        )}else{
+          return(
+            <View style={{backgroundColor:'#F69342',height:12, marginLeft:20,width:CaoWat/500*160}}>
+            <View style={styles.subbbb}>
+            </View>
+            </View>
+          )
+        }
+      }
+      const ffLevel =()=>{
+        if(Ffat>=410){
+          return(
+            <View style={{backgroundColor:'#f29b88',height:12, marginLeft:20,width:160}}>
+            <View style={styles.subbbb}>
+            </View>
+            </View>
+          )}else{
+            return(
+              <View style={{backgroundColor:'#F69342',height:12, marginLeft:20,width:Ffat/500*160}}>
+              <View style={styles.subbbb}>
+              </View>
+              </View>
+            )
+          }
+        }
   return (
     
     <View style={{flex:1,backgroundColor:"#fff"}}>
@@ -48,10 +124,11 @@ const HomeScreen = ({navigation}) => {
         <Text style={styles.textstyle1}>
                  碳水化合物
         </Text>
-        <View style={{backgroundColor:'#F69342',height:12, marginLeft:20,width:60}}>
+        {cwLevel()}
+        {/* <View style={{backgroundColor:'#F69342',height:12, marginLeft:20,width:60}}>
         <View style={styles.subbbb}>
         </View>
-        </View>
+        </View> */}
         
       </View>
         
@@ -60,10 +137,12 @@ const HomeScreen = ({navigation}) => {
         <Text style={styles.textstyle1}>
                 蛋白質
         </Text>
-        <View style={{backgroundColor:'#F69342',height:12, marginLeft:20,width:80}}>
+
+        {ewLevel()}
+        {/* <View style={{backgroundColor:'#F69342',height:12, marginLeft:20,width:80}}>
         <View style={styles.subbbb}>
         </View>
-        </View>
+        </View> */}
         
       </View>
         
@@ -72,10 +151,11 @@ const HomeScreen = ({navigation}) => {
         <Text style={styles.textstyle1}>
                  脂質
         </Text>
-        <View style={{backgroundColor:'#F69342',height:12, marginLeft:20,width:30}}>
+        {ffLevel()}
+        {/* <View style={{backgroundColor:'#F69342',height:12, marginLeft:20,width:30}}>
         <View style={styles.subbbb}>
         </View>
-        </View>
+        </View> */}
       </View>
         
       </View>  
@@ -97,15 +177,17 @@ borderTopRightRadius:5,
       <TouchableOpacity
        onPress={() =>{
          if(bottle>=0&&bottle<=2400){
-           setbottle(bottle+100);sethigh((bottle+100)*0.065);console.log(bottle);
+          ;
+           setbottle(bottle+100);
+           LayoutAnimation.easeInEaseOut();sethigh((bottle+100)*0.065);console.log(bottle);
            AsyncStorage.setItem(WATER_KEY, JSON.stringify(bottle+100));
           }else if(bottle>2400){
-            setbottle(2500);sethigh((2500)*0.065);console.log(bottle);
+            LayoutAnimation.easeInEaseOut();setbottle(2500);sethigh((2500)*0.065);console.log(bottle);
             AsyncStorage.setItem(WATER_KEY, JSON.stringify(2500));
 
           }
           else{
-           setbottle(0); sethigh(bottle*0.065);console.log(bottle);
+            LayoutAnimation.easeInEaseOut();setbottle(0); sethigh(bottle*0.065);console.log(bottle);
            AsyncStorage.setItem(WATER_KEY, JSON.stringify(0));
           };
          
@@ -118,10 +200,10 @@ borderTopRightRadius:5,
 <TouchableOpacity
        onPress={() =>{
         if(bottle>=100){
-          setbottle(bottle-100);sethigh((bottle-100)*0.065);console.log(bottle);
+          LayoutAnimation.easeInEaseOut();setbottle(bottle-100);sethigh((bottle-100)*0.065);console.log(bottle);
           AsyncStorage.setItem(WATER_KEY, JSON.stringify(bottle-100));
          }else{
-          setbottle(0); sethigh(bottle*0.065);console.log(bottle);
+          LayoutAnimation.easeInEaseOut(); setbottle(0); sethigh(bottle*0.065);console.log(bottle);
           AsyncStorage.setItem(WATER_KEY, JSON.stringify(0));
          };
          
@@ -134,7 +216,7 @@ borderTopRightRadius:5,
       </View>
       </View>
       <View style={styles.midContentStyle}>
-        <Text style={styles.textstyle2 }>今日熱量：0.0 kcal</Text>
+        <Text style={styles.textstyle2 }>今日熱量：{heat} kcal</Text>
       </View>
       <View style={styles.sectionStyle}>
         <Text style={{fontSize:20,color:'#fff',marginLeft:28} }>每日任務</Text>
@@ -203,6 +285,19 @@ borderTopRightRadius:5,
 </View>
 <View style={{height:100}}></View>
       </View>
+      
+      <Animated.View
+      style={[position.getLayout(), styles.ball]}
+      {...panResponder.panHandlers}
+    ><TouchableOpacity
+    onPress={()=>{
+navigation.navigate('snack');
+      
+    }}
+    >
+      <Image style={{height:40,width:40} }source={require('../src/img/diary.png')}/>
+      </TouchableOpacity>
+      </Animated.View>
 </ScrollView>
     </View>
     
@@ -245,6 +340,15 @@ const styles=StyleSheet.create({
     height:25,
     width:25,
     
+  },
+  ball: {
+    height: BALLWIDTH,
+    width: BALLWIDTH,
+    borderRadius: BALLWIDTH,
+    backgroundColor: "blue",
+    position: 'absolute',
+    alignItems:'center',
+    justifyContent:'center'
   },
   midContentStyle:{
     height:80,

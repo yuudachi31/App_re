@@ -19,7 +19,7 @@ const Header2 = ({ navigation }) => {
           setislogin(false);
         }}
          >
-    <Image style={{height:30, width:30,marginBottom:20,marginRight:22}} source={require('../img/event_note-black-18dp.png')}/>
+    <Image style={{height:30, width:30,marginBottom:20,marginRight:22}} source={require('../icon/settings-24px.png')}/>
         </TouchableOpacity>
       </View>
   );

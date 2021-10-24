@@ -1,10 +1,17 @@
-import React from "react";
-import { View, FlatList,StyleSheet,Text,Image,ImageBackground ,TouchableOpacity} from "react-native";
+import React ,{useContext} from "react";
+import { View,Dimensions, FlatList,StyleSheet,Text,Image,ImageBackground,  AsyncStorage,TouchableOpacity} from "react-native";
 import HomeDetail from "../src/components/HomeDetail";
-
-import Header1 from "../src/components/Header1"
-
+import { StoreContext } from "../src/stores/mestore"
+import Header1 from "../src/components/Header1";
+import axios from "axios";
+import * as Facebook from "expo-facebook";
+import * as firebase from "firebase";
+const LOGIN_KEY ="LOGIN_STATE";
+const win = Dimensions.get('window');
 const DiaryScreen = ({navigation}) => {
+  
+  const {loginState}=useContext(StoreContext);
+  const [islogin,setislogin]=loginState;
   return (
     
     <View style={{flex:1,backgroundColor:"#fff"}}>
@@ -14,33 +21,54 @@ const DiaryScreen = ({navigation}) => {
 
     </View>
     <TouchableOpacity
-    onPress={()=>navigation.navigate('breakfast')}
+    onPress={async ()=>{
+       navigation.navigate('breakfast')
+      //AsyncStorage.setItem(LOGIN_KEY, JSON.stringify(false));
+     //setislogin(false);
+    }
+  
+    }
     >
-<ImageBackground
-source={require('../src/img/breakfast.png')}
-style={styles.image}
->
+
 <View style={styles.tContainer}>
+  <Image style={{height:100,width:180}} source={require('../src/img/true-3.png')}/>
 <Text style={styles.diet}>早餐</Text>
 </View>
-</ImageBackground>
+
 </TouchableOpacity>
-<ImageBackground
-source={require('../src/img/lunch.png')}
-style={styles.image}
->
+
+<TouchableOpacity
+    onPress={async ()=>{
+       navigation.navigate('lunch')
+      //AsyncStorage.setItem(LOGIN_KEY, JSON.stringify(false));
+     //setislogin(false);
+    }
+  
+    }
+    >
+
 <View style={styles.tContainer}>
+  <Image style={{height:115,width:180}} source={require('../src/img/true-1.png')}/>
 <Text style={styles.diet}>午餐</Text>
 </View>
-</ImageBackground>
-<ImageBackground
-source={require('../src/img/dinner.png')}
-style={styles.image}
->
+
+</TouchableOpacity>
+<TouchableOpacity
+    onPress={async ()=>{
+       navigation.navigate('dinner')
+      //AsyncStorage.setItem(LOGIN_KEY, JSON.stringify(false));
+     //setislogin(false);
+    }
+  
+    }
+    >
+
 <View style={styles.tContainer}>
+  <Image style={{height:135,width:180}} source={require('../src/img/true-2.png')}/>
 <Text style={styles.diet}>晚餐</Text>
 </View>
-</ImageBackground>
+
+</TouchableOpacity>
 
     </View>
   );
@@ -55,16 +83,16 @@ justifyContent:'flex-end',
 marginTop:15
   },
   tContainer:{
-height:66,
-width:140,
-marginTop:59,
-backgroundColor:'rgba(52, 52, 52, 0.39)',
+height:150,
+width:win.width,
+marginTop:20,
 
-justifyContent:'center',
+flexDirection:'row',
+justifyContent:'space-around',
 alignItems:'center'
   },
   diet:{
-color:'#fff',
+
 fontSize:38,
 opacity:1
   },
